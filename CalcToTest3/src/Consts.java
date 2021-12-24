@@ -1,8 +1,13 @@
 
 public interface Consts {
+	public static final boolean ToShowExprParsing=false;
+	public static final boolean ToShowNumsParsing=false;
+	public static final boolean ToShowCalculating=false;
+	public static final boolean ToShowRomanNumsConstr=false;
+	//
 	public static final int RomanMaxVal=10;//10;
 	public static final int RomanMinVal=1;
-	public static final int ArabianMaxVal=200;//10;
+	public static final int ArabianMaxVal=10;//10;
 	public static final int ArabianMinVal=0;
 	//
 	//types instead of enum
@@ -17,5 +22,7 @@ public interface Consts {
 	public static final int MinusOperatorN=2;
 	public static final int MultiplyOperatorN=3;
 	public static final int DivideOperatorN=4;
-	public static final int PowerOperatorN=5;	
+	public static final int PowerOperatorN=5;
+	//
+	public static final int SysBase=10;
 }

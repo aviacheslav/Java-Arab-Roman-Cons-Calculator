@@ -2,27 +2,27 @@ import java.util.ArrayList;
 
 
 public class MathExpressionParsingLib {
-	public static int RomanDigitVal(String s, int Show1Hide0){
-		if(Show1Hide0==1)System.out.println("RomanDigitVal starts working");
+	public static int RomanDigitVal(String s){
+		if(Consts.ToShowNumsParsing)System.out.println("RomanDigitVal starts working");
 		int R=0;
 		//try{
 			if(s.equals("I")){
 				R=1;
-				if(Show1Hide0==1)System.out.println(s+" -> "+Integer.toString(R));
+				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("V")){
 				R=5;
-				if(Show1Hide0==1)System.out.println(s+" -> "+Integer.toString(R));
+				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("X")){
 				R=10;
-				if(Show1Hide0==1)System.out.println(s+" -> "+Integer.toString(R));
+				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("L")){
 				R=50;
-				if(Show1Hide0==1)System.out.println(s+" -> "+Integer.toString(R));
+				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("C")){
 				R=100;
-				if(Show1Hide0==1)System.out.println(s+" -> "+Integer.toString(R));
+				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else{
-				if(Show1Hide0==1)System.out.println(s+" - unknown character");
+				if(Consts.ToShowNumsParsing)System.out.println(s+" - unknown character");
 			}
 			//if(R<Consts.RomanMinVal)throw new Exception("Roman number is less than minimum "+Integer.toString(Consts.RomanMinVal));
 			//if(R>Consts.RomanMaxVal)throw new Exception("Roman number is greater than maximum "+Integer.toString(Consts.RomanMaxVal));
@@ -31,7 +31,7 @@ public class MathExpressionParsingLib {
 		//	System.out.println(ex.getMessage());
 		//	R=Consts.RomanMinVal;
 		//}
-		if(Show1Hide0==1)System.out.println("RomanDigitVal finishe working");
+		if(Consts.ToShowNumsParsing)System.out.println("RomanDigitVal finishe working");
 		return R;
 	}
 	
@@ -44,22 +44,7 @@ public class MathExpressionParsingLib {
 		else if(s.equals("^"))R=5;
 		return R;
 	}
-	public static int RomanNumberValPrimitive(String s){//Not used, but could be used, because task is too simple
-		int R=0;
-		if(s.equals("I"))R=1;
-		if(s.equals("II"))R=2;
-		if(s.equals("III"))R=3;
-		else if(s.equals("IV"))R=4;
-		else if(s.equals("V"))R=5;
-		else if(s.equals("VI"))R=6;
-		else if(s.equals("VII"))R=7;
-		else if(s.equals("VIII"))R=8;
-		else if(s.equals("IX"))R=8;
-		else if(s.equals("X"))R=10;
-		else if(s.equals("L"))R=50;
-		else if(s.equals("C"))R=100;
-		return R;
-	}
+
 	public static int ArabDigitVal(String s){
 		int R=-1;
 		if(s.equals("0"))R=0;
@@ -74,26 +59,18 @@ public class MathExpressionParsingLib {
 		else if(s.equals("9"))R=9;
 		return R;
 	}
-	public static int ArabNumberValPrimitive(String s){//Not used, but could be used, because task is too simple
-		int R=-1;
-		if(s.equals("0"))R=0;
-		else if(s.equals("1"))R=1;
-		else if(s.equals("2"))R=2;
-		else if(s.equals("3"))R=3;
-		else if(s.equals("4"))R=4;
-		else if(s.equals("5"))R=5;
-		else if(s.equals("6"))R=6;
-		else if(s.equals("7"))R=7;
-		else if(s.equals("8"))R=8;
-		else if(s.equals("9"))R=8;
-		else if(s.equals("10"))R=10;
-		return R;
-	}
+
 	public static int ArabNumCalc(ArrayList<Integer> digits){
-		int R=0, SysBase=10;
-		for(int i=1; i<=digits.size(); i++){
-			R=R*SysBase+digits.get(i-1);
-		}
+		int R=0;//, SysBase=10;
+		//try {
+			for (int i = 1; i <= digits.size(); i++) {
+				R = R * Consts.SysBase + digits.get(i - 1);
+			}
+			//if()
+		//}
+		//catch(Exception ex){
+
+		//}
 		return R;
 	}
 	public static int RomanNumCalc(ArrayList<Integer> digits, int Show1Hide0){//, TValsShowHide vsh)
@@ -167,22 +144,22 @@ public class MathExpressionParsingLib {
         //}
         return R;
     }//fn
-	public static ArrayList<Integer> RomanDigits(String s, int Show1Hide0){
+	public static ArrayList<Integer> RomanDigits(String s){
 		ArrayList<Integer>digits=new ArrayList<Integer>();
 		String cs;
 		int curDigit;
-		if(Show1Hide0==1)System.out.printf(" RomanDigits starts working\n");
+		if(Consts.ToShowNumsParsing)System.out.printf(" RomanDigits starts working\n");
 		for(int i=1; i<=s.length(); i++){
 			cs=s.substring(i-1,i+1-1);
-			curDigit=RomanDigitVal(cs, Show1Hide0);
+			curDigit=RomanDigitVal(cs);
 			//System.out.printf("Char: %s, Digit= %d \n,",cs,curDigit);
-			if(Show1Hide0==1)System.out.println(Integer.toString(i)+") Char: "+cs+" Digit= "+Integer.toString(curDigit));
+			if(Consts.ToShowNumsParsing)System.out.println(Integer.toString(i)+") Char: "+cs+" Digit= "+Integer.toString(curDigit));
 			digits.add(curDigit);
 		}
-		if(Show1Hide0==1)System.out.printf(" RomanDigits finishes working\n");
+		if(Consts.ToShowNumsParsing)System.out.printf(" RomanDigits finishes working\n");
 		return digits;
 	}//fn
-	public static ArrayList<Integer> ArabDigits(String s, int Show1Hide0){
+	public static ArrayList<Integer> ArabDigits(String s){
 		ArrayList<Integer>R=new ArrayList<Integer>();
 		int L=s.length(), curDigit;
 		String cs;
@@ -192,7 +169,7 @@ public class MathExpressionParsingLib {
 			curDigit=ArabDigitVal(cs);
 			if(curDigit==-1){
 				Correct=false;
-				if(Show1Hide0==1)System.out.println("Wrong arab digit: "+cs);
+				if(Consts.ToShowNumsParsing)System.out.println("Wrong arab digit: "+cs);
 			}else{
 				R.add(curDigit);
 			}
@@ -235,58 +212,111 @@ public class MathExpressionParsingLib {
 		}
 		return R;
 	}
-	//public static String GetStringDigit(int n){
-	//	String s="";
-	//	switch(n){
-	//		case 0:
-	//			s="0";
-	//		break;
-	//		case 1:
-	//			s="1";
-	//		break;
-	//		case 2:
-	//			s="2";
-	//		break;
-	//		case 3:
-	//			s="3";
-	//		break;
-	//		case 4:
-	//			s="4";
-	//		break;
-	//		case 5:
-	//			s="5";
-	//		break;
-	//		case 6:
-	//			s="6";
-	//		break;
-	//		case 7:
-	//			s="7";
-	//		break;
-	//		case 8:
-	//			s="8";
-	//		break;
-	//		case 9:
-	//			s="9";
-	//		break;
-	//	}
-	//	return s;
-	//}
-	//public static String GetStringOperator(int n){
-	//	String s="";
-	//	switch(n){
-	//		case 1:
-	//			s="+";
-	//		break;
-	//		case 2:
-	//			s="-";
-	//		break;
-	//		case 3:
-	//			s="*";
-	//		break;
-	//		case 4:
-	//			s="/";
-	//		break;
-	//	}
-	//	return s;
-	//}
-}
+	public static boolean IsOrderMarker(String s){
+		return (s.equals("E")|| s.equals("e")|| s.equals("@"));
+	}
+	public static String RomanNumberConstructor(int value){
+		String s="";
+		int DigSetN;
+		int x=value, DefdPart, MaxOperDig, MinBoundDig, MaxBoundDig, ActOperDigN, ActOperDigInSetN, QCurrentDigits;
+		String 	 MaxOperDigS, MinBoundDigS, MaxBoundDigS, DefdPartS="";
+		int[]DigitOfBounds={1, 5, 10, 50, 100, 400};
+		int[]DigitToOperate={1, 10, 100};
+		String[]DigitsChars={"I", "V", "X", "L", "C"};
+		//
+		if(Consts.ToShowRomanNumsConstr)System.out.println("RomanNumberConstructor starts working");
+		//
+		if(x>DigitOfBounds[DigitOfBounds.length-1] ){
+			s="Too many";
+			if(Consts.ToShowRomanNumsConstr)System.out.println(s);
+		}else if(x<DigitOfBounds[1-1] ){
+			s="Too few";
+			if(Consts.ToShowRomanNumsConstr)System.out.println(s);
+		}else{
+			while(x>0) {
+				if (Consts.ToShowRomanNumsConstr) System.out.println("External cycle: x=" + Integer.toString(x));
+				//1) def bounds
+				DigSetN = 6;
+				while (!(x >= DigitOfBounds[DigSetN - 1 - 1] && x < DigitOfBounds[DigSetN - 1])) {
+					DigSetN--;
+					if (Consts.ToShowRomanNumsConstr) System.out.println("DigSetN=" + Integer.toString(DigSetN));
+				}
+				MinBoundDig = DigitOfBounds[DigSetN - 1 - 1];
+				MaxBoundDig = DigitOfBounds[DigSetN - 1];
+				MinBoundDigS = DigitsChars[DigSetN - 1 - 1];
+				if (DigSetN == 6) MaxBoundDigS = "400";
+				else MaxBoundDigS = DigitsChars[DigSetN - 1];
+				if (Consts.ToShowRomanNumsConstr)System.out.println("bounds found: " + MinBoundDigS + "<=" + Integer.toString(x) + "<" + MaxBoundDigS);
+				//2) def nearest oper digit
+				ActOperDigN = DigitToOperate.length;
+				while (DigitToOperate[ActOperDigN - 1] > MinBoundDig) {
+					ActOperDigN--;
+				}
+				MaxOperDig = DigitToOperate[ActOperDigN - 1];
+				//MaxOperDigS = Integer.toString(MaxOperDig);
+				if (Consts.ToShowRomanNumsConstr) System.out.println("MaxOperDig= " + Integer.toString(MaxOperDig));
+				//2/2 finding fitting char for this digit
+				ActOperDigInSetN = 1;
+				while (DigitOfBounds[ActOperDigInSetN - 1] < MaxOperDig) {
+					if (Consts.ToShowRomanNumsConstr)System.out.println(Integer.toString(MaxOperDig) + "<" + "DigitOfBounds(" + Integer.toString(ActOperDigInSetN) + ")=" + Integer.toString(DigitOfBounds[ActOperDigInSetN - 1]));
+					ActOperDigInSetN++;
+				}
+				MaxOperDig = DigitOfBounds[ActOperDigInSetN - 1];
+				//MaxOperDigS = Integer.toString(MaxOperDig);
+				MaxOperDigS = DigitsChars[ActOperDigInSetN - 1];;
+				if (Consts.ToShowRomanNumsConstr) System.out.println("Checking: MaxOperDig= " + MaxOperDigS);
+				//3) Def Q digits - 2 vrns
+				DefdPart = 0;
+				if (x == 0) {
+					if (Consts.ToShowRomanNumsConstr) System.out.println("Whole nuber defined: " + s);
+				}
+				if (MaxOperDig < MinBoundDig && x >= MinBoundDig && x < MinBoundDig + 4 * MaxOperDig) {
+					if (Consts.ToShowRomanNumsConstr) {
+						System.out.println(MaxOperDigS + " < " + MinBoundDigS + " and");
+						System.out.println(MinBoundDigS + " <= " + Integer.toString(x) + " < " + MinBoundDigS + " + 4 * " + MaxOperDigS);
+					}
+					DefdPart = MinBoundDig;
+					DefdPartS = MinBoundDigS;
+					s = s + DefdPartS;
+					x -= DefdPart;
+					if (Consts.ToShowRomanNumsConstr)System.out.println("DefdPartS=" + DefdPartS + "s= " + s + " x=" + Integer.toString(x));
+					if (x == 0) {
+						if (Consts.ToShowRomanNumsConstr) System.out.println("Whole number defined");
+					}
+				} else if (x > 0) { //else vrn 2: if MaxOperDig==MinBoundDig ( & x>0)
+					if (Consts.ToShowRomanNumsConstr)
+						System.out.println("Defining rest part of number, using operating digit " + MaxOperDigS);
+					QCurrentDigits = 4;
+					while (MaxOperDig * QCurrentDigits > x) {
+						QCurrentDigits--;
+					}
+					if (QCurrentDigits == 4) {
+						if (Consts.ToShowRomanNumsConstr)
+							System.out.println(Integer.toString(x) + ">" + Integer.toString(4 * MaxOperDig));
+						DefdPart = DefdPart + (MaxBoundDig - MaxOperDig);
+						DefdPartS = DefdPartS + MaxOperDigS;
+						DefdPartS = DefdPartS + MaxBoundDigS;
+						s = s + DefdPartS;
+						if (Consts.ToShowRomanNumsConstr) System.out.println("_DefdPart=" + DefdPartS);
+					} else {
+						if (Consts.ToShowRomanNumsConstr) System.out.println("Part of number defined: " + s);
+						DefdPart = DefdPart + QCurrentDigits * MaxOperDig;
+						for (int i = 1; i <= QCurrentDigits; i++) {
+							DefdPartS = DefdPartS + MaxOperDigS;
+						}
+						s = s + DefdPartS;
+						if (Consts.ToShowRomanNumsConstr) System.out.println("DefdPart_=" + DefdPartS);
+					}
+					if (Consts.ToShowRomanNumsConstr) System.out.println("Part of num defined=" + DefdPartS);
+					x = x - DefdPart;
+					if (Consts.ToShowRomanNumsConstr) System.out.println("x= " + Integer.toString(x));
+					if (x == 0 && Consts.ToShowRomanNumsConstr) System.out.println("Whole number defined");
+				}//if x>0, else NOp
+				DefdPartS="";
+			}//while,ext cycle lasts
+		}//if x is within awllowed range
+		if (Consts.ToShowRomanNumsConstr) System.out.println("Result= " + Integer.toString(value)+" = "+s+"( rest="+Integer.toString(x)+")");
+		if (Consts.ToShowRomanNumsConstr) System.out.println("RomanNumberConstructor finishes working");
+		return s;
+	}//fn
+}//cl

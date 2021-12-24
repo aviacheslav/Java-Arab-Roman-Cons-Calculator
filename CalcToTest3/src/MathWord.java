@@ -19,9 +19,9 @@ public class MathWord  implements Cloneable{
 		this.content="";
 		//this.RomanNotArabian=false;
 	}
-	public MathWord(String content){
+	public MathWord(String content/*, boolean ConsiderBounds*/){
 		this.content=content;
-		this.SetSmart(content);
+		this.SetSmart(content/*, ConsiderBounds*/);
 	}
 	//public void Set(String content, int TypeN, boolean RomanNotArabian, int value){
 	//	this.TypeN=TypeN;
@@ -35,7 +35,7 @@ public class MathWord  implements Cloneable{
 	//	this.content=content;
 	//	//this.RomanNotArabian=RomanNotArabian;
 	//}
-	public void SetSmart(String content){
+	public void SetSmart(String content/*, boolean considerBounds*/){
 		this.content=content;
 		//this.value=0;
 		this.value=MathExpressionParsingLib.OperatorN(content);
@@ -59,7 +59,7 @@ public class MathWord  implements Cloneable{
 				break;
 			}
 		}else{
-			this.value=MathExpressionParsingLib.RomanNumCalc(MathExpressionParsingLib.RomanDigits(content,0),0);
+			this.value=MathExpressionParsingLib.RomanNumCalc(MathExpressionParsingLib.RomanDigits(content),0);
 			if(this.value>0){
 				this.TypeN=Consts.RomanNumberTypeN;
 				//even if it is too big roman number, it is roman number, though it will be made less
@@ -76,17 +76,20 @@ public class MathWord  implements Cloneable{
 			}
 		}
 		if(this.value==0){
-			this.value=MathExpressionParsingLib.ArabNumCalc(MathExpressionParsingLib.ArabDigits(content,0));
+			this.value=MathExpressionParsingLib.ArabNumCalc(MathExpressionParsingLib.ArabDigits(content));
+			if(content.substring(1-1, 1+1-1).equals("-")){
+				this.value=this.value*(-1);
+			}
 			this.TypeN=Consts.ArabianNumberTypeN;
-			try{
-				if(this.value>Consts.ArabianMaxVal) throw new Exception("Arabian number is greater than maximum allowed");
-				if(this.value<Consts.ArabianMinVal) throw new Exception("Arabian number is less than minimum allowed");
-			}
-			catch(Exception ex){
-				System.out.println(ex.getMessage());
-				if(this.value>Consts.ArabianMaxVal)this.value=Consts.ArabianMaxVal;
-				if(this.value<Consts.ArabianMinVal)this.value=Consts.ArabianMinVal;
-			}
+			//try{
+			//	if(this.value>Consts.ArabianMaxVal /*&& considerBounds*/) throw new Exception("Arabian number is greater than maximum allowed");
+			//	if(this.value<Consts.ArabianMinVal /*&& considerBounds*/) throw new Exception("Arabian number is less than minimum allowed");
+			//}
+			//catch(Exception ex){
+			//	System.out.println(ex.getMessage());
+			//	if(this.value>Consts.ArabianMaxVal)this.value=Consts.ArabianMaxVal;
+			//	if(this.value<Consts.ArabianMinVal)this.value=Consts.ArabianMinVal;
+			//}
 		}
 	}
 	public boolean GetIfIsNumber(){return (TypeN==Consts.ArabianNumberTypeN || TypeN==Consts.RomanNumberTypeN);}

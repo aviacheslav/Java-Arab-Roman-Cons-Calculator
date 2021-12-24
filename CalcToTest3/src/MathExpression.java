@@ -20,17 +20,19 @@ public class MathExpression {
 }
 //public void SplitToMathWordsByOperands(String sExt){
 public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
-	System.out.println("Expression was input: "+sExt);
+	if(Consts.ToShowExprParsing)System.out.println("Expression was input: "+sExt);
 	MathWord curMathWord=new MathWord(), CurMathWord1;
 	String s="";
 	String cs;
 	boolean Correct=true;
 	int ValRoma, ValArab, OperatN, CountRoman=0, CountArab=0, LW, Val=0;
 	int LE=sExt.length();
-	
+	//
+	boolean considerBounds=true;
+	//
 	for(int i=1; i<=LE; i++){
 		cs=sExt.substring(i-1,i-1+1);
-		ValRoma=MathExpressionParsingLib.RomanDigitVal(cs,0);
+		ValRoma=MathExpressionParsingLib.RomanDigitVal(cs);
 		ValArab=MathExpressionParsingLib.ArabDigitVal(cs);
 		OperatN=MathExpressionParsingLib.OperatorN(cs);
 		//ValRoma=this.ArabDigitVal(cs);
@@ -40,7 +42,7 @@ public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
 		if(ValRoma>0)CountRoman++;
 		if(ValArab>-1)CountArab++;
 		//if(CountRoman>0 && CountArab>0) throw new Exception("Forbidden Mixture of Arabian and Roman Numbers!");
-		System.out.println(cs+" Arab="+Integer.toString(ValArab)+" Roma= "+Integer.toString(ValRoma)+" OperatorN="+Integer.toString(OperatN));
+		if(Consts.ToShowExprParsing)System.out.println(cs+" Arab="+Integer.toString(ValArab)+" Roma= "+Integer.toString(ValRoma)+" OperatorN="+Integer.toString(OperatN));
 		if(OperatN==0 && ValRoma==0 && ValArab==-1 && !cs.equals(" ")){
 			Correct=false;
 			System.out.println("Incorrect character!");
@@ -54,7 +56,7 @@ public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
 			s=s+cs;
 		}
 	}
-	System.out.println("Expression without spaces: "+s);
+	if(Consts.ToShowExprParsing)System.out.println("Expression without spaces: "+s);
 	int L=s.length();//, countOpers;
 	for(int i=1; i<=L; i++){
 		cs=s.substring(i-1,i-1+1);
@@ -63,7 +65,7 @@ public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
 		if(MathExpressionParsingLib.OperatorN(cs)>0){
 			if(i==1 || i==L){
 				Correct=false;
-				System.out.println("Operator must not be first or last character in math expr!");
+				if(Consts.ToShowExprParsing)System.out.println("Operator must not be first or last character in math expr!");
 			}else if(this.NO.size()>0 && this.NO.get(this.NO.size()-1)==i-1){
 				Correct=false;
 				System.out.println("Operators must be divided by operands!");
@@ -77,7 +79,7 @@ public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
 					this.NNS.add(this.NOF.get(this.NOF.size()-1-1)+1);
 				}
 				this.NNF.add(i-1);
-				System.out.println("Number: "+Integer.toString(this.NNS.get(this.NNS.size()-1))+" ... "+Integer.toString(this.NNF.get(this.NNF.size()-1)));
+				if(Consts.ToShowExprParsing)System.out.println("Number: "+Integer.toString(this.NNS.get(this.NNS.size()-1))+" ... "+Integer.toString(this.NNF.get(this.NNF.size()-1)));
 			}
 		}
 		if(i==L){
@@ -87,26 +89,21 @@ public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
 			}else{
 				this.NNS.add(this.NO.get(this.NO.size()-1)+1);
 			}
-			System.out.println("Last number: "+Integer.toString(this.NNS.get(this.NNS.size()-1))+" ... "+Integer.toString(this.NNF.get(this.NNF.size()-1)));
-			System.out.println("Operators");
+			if(Consts.ToShowExprParsing)System.out.println("Last number: "+Integer.toString(this.NNS.get(this.NNS.size()-1))+" ... "+Integer.toString(this.NNF.get(this.NNF.size()-1)));
+			if(Consts.ToShowExprParsing)System.out.println("Operators");
 		}
 	}//for
 	for(int i=1; i<=this.NO.size(); i++){
-		System.out.println(Integer.toString(this.NO.get(i-1)));
+		if(Consts.ToShowExprParsing)System.out.println(Integer.toString(this.NO.get(i-1)));
 	}
 	//Recognizing and record!
 	ArrayList<MathWord>expr=new ArrayList<MathWord>();
 	LW=this.NO.size();
-	System.out.println("Words prepared are:");
+	if(Consts.ToShowExprParsing)System.out.println("Words prepared are:");
 	cs=s.substring(NNS.get(1-1)-1,NNF.get(1-1)+1-1);
-	//Val=this.ArabNumCalc(this.ArabDigits(cs));
-	Val=MathExpressionParsingLib.ArabNumCalc(MathExpressionParsingLib.ArabDigits(cs,0));
-	System.out.println("First Number: "+cs+" = "+Integer.toString(Val));
-	//curMathWord.Set(String content, int TypeN, boolean RomanNotArabian, int value);
-	//curMathWord.Set(cs, 2, (CountRoman>0), Val);
-	//curMathWord.Set(cs, 2,  Val);
+	Val=MathExpressionParsingLib.ArabNumCalc(MathExpressionParsingLib.ArabDigits(cs));
+	if(Consts.ToShowExprParsing)System.out.println("First Number: "+cs+" = "+Integer.toString(Val));
 	curMathWord.SetSmart(cs);
-	//expr.add(curMathWord);
 	try{
 		if(CountRoman>0 && CountArab>0) throw new Exception("Forbidden Mixture of Arabian and Roman Numbers!");
 		expr.add((MathWord)curMathWord.clone());
@@ -120,16 +117,11 @@ public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
 		Correct=false;
 	}
 	////requires try catch
-	System.out.println("First Number: "+cs+" = "+Integer.toString(Val)+ " == "+curMathWord.toString()+ " == "+expr.get(expr.size()-1).toString());
+	if(Consts.ToShowExprParsing)System.out.println("First Number: "+cs+" = "+Integer.toString(Val)+ " == "+curMathWord.toString()+ " == "+expr.get(expr.size()-1).toString());
 	for(int i=1; i<=LW; i++){
-		//cs=s.substring(this.NO.get(i-1)-1,this.NO.get(i-1)+1-1); //yes for 1-char operands
 		cs=s.substring(this.NO.get(i-1)-1,this.NOF.get(i-1)+1-1);
 		Val=MathExpressionParsingLib.OperatorN(cs);
-		//System.out.println("OPerator: "+cs+" N "+Integer.toString(Val));
-		//curMathWord.Set(cs, 4, (CountRoman>0), Val);
-		//curMathWord.Set(cs, 2,  Val);
 		curMathWord.SetSmart(cs);
-		//expr.add(curMathWord);
 		try{
 			expr.add((MathWord)curMathWord.clone());
 		}
@@ -137,26 +129,52 @@ public ArrayList<MathWord>SplitToMathWordsByOperands(String sExt){
 			System.out.println(ex.getMessage());
 			Correct=false;
 		}
-		System.out.println("OPerator: "+cs+" N "+Integer.toString(Val)+ " == "+curMathWord.toString()+ " == "+expr.get(expr.size()-1).toString()+" Previous word = "+expr.get(expr.size()-1-1).toString());
+		if(Consts.ToShowExprParsing)System.out.println("OPerator: "+cs+" N "+Integer.toString(Val)+ " == "+curMathWord.toString()+ " == "+expr.get(expr.size()-1).toString()+" Previous word = "+expr.get(expr.size()-1-1).toString());
 		//
 		cs=s.substring(NNS.get(i+1-1)-1,NNF.get(i+1-1)+1-1);
-		//Val=this.ArabNumCalc(this.ArabDigits(cs));
-		Val=MathExpressionParsingLib.ArabNumCalc(MathExpressionParsingLib.ArabDigits(cs, 0));
-		//System.out.println("Number: "+cs+" = "+Integer.toString(Val)+ " == "+curMathWord.toString());
-		//curMathWord.Set(cs, 2, (CountRoman>0), Val);
+		Val=MathExpressionParsingLib.ArabNumCalc(MathExpressionParsingLib.ArabDigits(cs));
 		curMathWord.SetSmart(cs);
-		//expr.add(curMathWord);
 		try{
+			if(curMathWord.GetTypeN()==Consts.ArabianNumberTypeN && curMathWord.GetNumberValue()<Consts.ArabianMinVal){
+				throw new NumberExceedsBoundsException("ArabianNumber "+Integer.toString(curMathWord.GetNumberValue())+" is less than allowed minimum "+Integer.toString(Consts.ArabianMinVal));
+			}
+			if(curMathWord.GetTypeN()==Consts.ArabianNumberTypeN && curMathWord.GetNumberValue()>Consts.ArabianMaxVal){
+				throw new NumberExceedsBoundsException("ArabianNumber "+Integer.toString(curMathWord.GetNumberValue())+" is greater than allowed maximum "+Integer.toString(Consts.ArabianMaxVal));
+			}
+			if(curMathWord.GetTypeN()==Consts.RomanNumberTypeN && curMathWord.GetNumberValue()<Consts.RomanMinVal){
+				throw new NumberExceedsBoundsException("RomanNumber "+Integer.toString(curMathWord.GetNumberValue())+" is less than allowed minimum "+Integer.toString(Consts.RomanMinVal));
+			}
+			if(curMathWord.GetTypeN()==Consts.RomanNumberTypeN && curMathWord.GetNumberValue()>Consts.RomanMaxVal){
+				throw new NumberExceedsBoundsException("RomanNumber "+Integer.toString(curMathWord.GetNumberValue())+" is greater than allowed maximum "+Integer.toString(Consts.RomanMaxVal));
+			}
+			//
 			expr.add((MathWord)curMathWord.clone());
 		}
 		catch(CloneNotSupportedException ex){
 			System.out.println(ex.getMessage());
 			Correct=false;
 		}
-		System.out.println("Number: "+cs+" = "+Integer.toString(Val)+ " == "+curMathWord.toString()+ " == "+expr.get(expr.size()-1).toString()+" Previous word = "+expr.get(expr.size()-1-1).toString());
+		catch(NumberExceedsBoundsException ex1){
+			System.out.println(ex1.getMessage());
+			System.out.println("Note: number changed!");
+			if(curMathWord.GetTypeN()==Consts.ArabianNumberTypeN && curMathWord.GetNumberValue()<Consts.ArabianMinVal){
+				curMathWord.SetSmart(Integer.toString(Consts.ArabianMinVal));
+			}
+			if(curMathWord.GetTypeN()==Consts.ArabianNumberTypeN && curMathWord.GetNumberValue()>Consts.ArabianMaxVal){
+				curMathWord.SetSmart(Integer.toString(Consts.ArabianMaxVal));
+			}
+			if(curMathWord.GetTypeN()==Consts.RomanNumberTypeN && curMathWord.GetNumberValue()<Consts.RomanMinVal){
+				curMathWord.SetSmart("I");
+			}
+			if(curMathWord.GetTypeN()==Consts.RomanNumberTypeN && curMathWord.GetNumberValue()>Consts.RomanMaxVal){
+				curMathWord.SetSmart("X");
+			}
+			System.out.println("Now number is: "+curMathWord.toString()+" = "+Integer.toString(curMathWord.GetNumberValue()));
+		}
+		if(Consts.ToShowExprParsing)System.out.println("Number: "+cs+" = "+Integer.toString(Val)+ " == "+curMathWord.toString()+ " == "+expr.get(expr.size()-1).toString()+" Previous word = "+expr.get(expr.size()-1-1).toString());
 		//
 	}
-	System.out.println("Number of words in expr: "+Integer.toString(expr.size()));
+	if(Consts.ToShowExprParsing)System.out.println("Number of words in expr: "+Integer.toString(expr.size()));
 	return expr;
 }//fn
 public ArrayList<MathWord>Get(){return this.expr;}

@@ -1,5 +1,5 @@
 
-public class MathExpElement {//Not needed, not used
+public class MathExpElement {//Not needed, not used. Instead of it works recursive solver, where only 2 operators and operands
 	public int[] operand;
 	public int[] operator;
 	public int GivenN;

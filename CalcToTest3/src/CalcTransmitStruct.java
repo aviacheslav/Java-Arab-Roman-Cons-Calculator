@@ -7,6 +7,7 @@ public class CalcTransmitStruct {
 		FromN=0;
 		//Val=0;
 		Val=new MathWord();
+		//Val.SetSmart("0", false);
 		Val.SetSmart("0");
 	}
 	public void SetVal(MathWord val){//works well without this method, with simple '='
