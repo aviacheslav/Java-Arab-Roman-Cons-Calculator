@@ -7,14 +7,10 @@ public class Program {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String s;
-		System.out.printf("");
 		Scanner in = new Scanner(System.in);
 		String str;
-	    str="CXLIX";
 	    int rNum;
-		System.out.printf("Example string: %s \n", str);
-		System.out.println("Before task - testing roman numbers parser ");
-		 ArrayList<Integer>digits=MathExpressionParsingLib.RomanDigits(str);
+		ArrayList<Integer>digits=MathExpressionParsingLib.RomanDigits(str);
 	    //for(int i=1; i<=399; i++){
 		//	rNum=i;
 		//	//rNum=379;
