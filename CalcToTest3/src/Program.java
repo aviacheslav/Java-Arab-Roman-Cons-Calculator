@@ -10,7 +10,7 @@ public class Program {
 		Scanner in = new Scanner(System.in);
 		String str;
 	    int rNum;
-		ArrayList<Integer>digits=MathExpressionParsingLib.RomanDigits(str);
+		//ArrayList<Integer>digits=MathExpressionParsingLib.RomanDigits(str);
 	    //for(int i=1; i<=399; i++){
 		//	rNum=i;
 		//	//rNum=379;

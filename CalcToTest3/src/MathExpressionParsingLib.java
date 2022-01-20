@@ -3,27 +3,31 @@ import java.util.ArrayList;
 
 public class MathExpressionParsingLib {
 	public static int RomanDigitVal(String s){
-		if(Consts.ToShowNumsParsing)System.out.println("RomanDigitVal starts working");
+		//if(Consts.ToShowNumsParsing)System.out.println("RomanDigitVal starts working");
 		int R=0;
 		//try{
 			if(s.equals("I")){
 				R=1;
-				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
+				////if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("V")){
 				R=5;
-				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
+				////if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("X")){
 				R=10;
-				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
+				////if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("L")){
 				R=50;
-				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
+				////if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else if(s.equals("C")){
 				R=100;
-				if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
+				////if(Consts.ToShowNumsParsing)System.out.println(s+" -> "+Integer.toString(R));
 			}else{
-				if(Consts.ToShowNumsParsing)System.out.println(s+" - unknown character");
+				////if(Consts.ToShowNumsParsing)System.out.println(s+" - unknown character");
 			}
+			//if(Consts.ToShowNumsParsing){
+			//	if(R==0)System.out.println(s+" - unknown character");
+			//	else System.out.println(s+" -> "+Integer.toString(R)); 
+			//}
 			//if(R<Consts.RomanMinVal)throw new Exception("Roman number is less than minimum "+Integer.toString(Consts.RomanMinVal));
 			//if(R>Consts.RomanMaxVal)throw new Exception("Roman number is greater than maximum "+Integer.toString(Consts.RomanMaxVal));
 		//}
@@ -31,7 +35,7 @@ public class MathExpressionParsingLib {
 		//	System.out.println(ex.getMessage());
 		//	R=Consts.RomanMinVal;
 		//}
-		if(Consts.ToShowNumsParsing)System.out.println("RomanDigitVal finishe working");
+		//if(Consts.ToShowNumsParsing)System.out.println("RomanDigitVal finishe working");
 		return R;
 	}
 	
@@ -69,7 +73,7 @@ public class MathExpressionParsingLib {
 			//if()
 		//}
 		//catch(Exception ex){
-
+		//
 		//}
 		return R;
 	}
@@ -148,15 +152,15 @@ public class MathExpressionParsingLib {
 		ArrayList<Integer>digits=new ArrayList<Integer>();
 		String cs;
 		int curDigit;
-		if(Consts.ToShowNumsParsing)System.out.printf(" RomanDigits starts working\n");
+		//if(Consts.ToShowNumsParsing)System.out.printf(" RomanDigits starts working\n");
 		for(int i=1; i<=s.length(); i++){
 			cs=s.substring(i-1,i+1-1);
 			curDigit=RomanDigitVal(cs);
 			//System.out.printf("Char: %s, Digit= %d \n,",cs,curDigit);
-			if(Consts.ToShowNumsParsing)System.out.println(Integer.toString(i)+") Char: "+cs+" Digit= "+Integer.toString(curDigit));
+			//if(Consts.ToShowNumsParsing)System.out.println(Integer.toString(i)+") Char: "+cs+" Digit= "+Integer.toString(curDigit));
 			digits.add(curDigit);
 		}
-		if(Consts.ToShowNumsParsing)System.out.printf(" RomanDigits finishes working\n");
+		//if(Consts.ToShowNumsParsing)System.out.printf(" RomanDigits finishes working\n");
 		return digits;
 	}//fn
 	public static ArrayList<Integer> ArabDigits(String s){
@@ -319,4 +323,5 @@ public class MathExpressionParsingLib {
 		if (Consts.ToShowRomanNumsConstr) System.out.println("RomanNumberConstructor finishes working");
 		return s;
 	}//fn
+	
 }//cl

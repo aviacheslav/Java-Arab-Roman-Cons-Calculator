@@ -35,7 +35,7 @@ public class MathWord  implements Cloneable{
 	//	this.content=content;
 	//	//this.RomanNotArabian=RomanNotArabian;
 	//}
-	public void SetSmart(String content/*, boolean considerBounds*/){
+	public void SetSmart(String content, boolean considerBounds){
 		this.content=content;
 		//this.value=0;
 		this.value=MathExpressionParsingLib.OperatorN(content);
@@ -67,7 +67,7 @@ public class MathWord  implements Cloneable{
 				//for less than 1 no digits in roman system
 				//this exception will be handled not here, but during calculations
 				try{
-					if(this.value>Consts.RomanMaxVal) throw new Exception("Roman number is greater than maximum allowed");
+					if(this.value>Consts.RomanMaxVal && considerBounds) throw new Exception("Roman number is greater than maximum allowed");
 				}
 				catch(Exception ex){
 					System.out.println(ex.getMessage());
@@ -92,6 +92,17 @@ public class MathWord  implements Cloneable{
 			//}
 		}
 	}
+	public void SetSmart(String content){
+		SetSmart(content, false);
+	}
+	//
+	//public void SetByNumberVal(int val, boolean considerBounds){
+	//	SetSmart(Integer.toString(val), considerBounds);
+	//}
+	//public void SetByNumberVal(int val){
+	//	SetSmart(Integer.toString(val));
+	//}
+	//
 	public boolean GetIfIsNumber(){return (TypeN==Consts.ArabianNumberTypeN || TypeN==Consts.RomanNumberTypeN);}
 	public boolean GetIfIsOperatorOf2OPerands(){return (TypeN==Consts.OperatorOf2OperandsOf1stPriorityLevel || TypeN==Consts.OperatorOf2OperandsOf2ndPriorityLevel || TypeN==Consts.OperatorOf2OperandsOf3rdPriorityLevel);}
 	public int GetOperatorPriorityLevel(){

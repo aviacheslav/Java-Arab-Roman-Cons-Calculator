@@ -1,8 +1,8 @@
 
 public interface Consts {
-	public static final boolean ToShowExprParsing=false;
-	public static final boolean ToShowNumsParsing=false;
-	public static final boolean ToShowCalculating=false;
+	public static final boolean ToShowExprParsing=false;//false;
+	public static final boolean ToShowNumsParsing=false;//true;
+	public static final boolean ToShowCalculating=false;//false;
 	public static final boolean ToShowRomanNumsConstr=false;
 	//
 	public static final int RomanMaxVal=10;//10;
